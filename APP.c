@@ -16,15 +16,27 @@
 /************************************************************************/
 /*				OS tasks definitions                                     */
 /************************************************************************/
+
+/************************************************************************
+*  GetKey Task   is called every 1ms 
+*  checks if the game asks for answer 
+*   if so it calls get answer function that operates on keypad                               
+************************************************************************/
+
 void Task_1ms_GetKey(void)
 {
 	if (Infotainment_Status == INFOTAINMENT_GET_ANSWER)
 	{
 		Infotainment_GetAnswer();
 	}
-	/*get keypad */
+	/*get keypad answer */
 }
 
+/************************************************************************
+*  Game Task   is called every 250ms
+*  checks if the game status
+*  it calls one of game function depending on the state
+************************************************************************/
 void Task_10ms_Game(void)
 { 
 	if (Infotainment_Status == INFOTAINMENT_IDLE)
@@ -49,13 +61,23 @@ void Task_10ms_Game(void)
 
 int main (void)
 {
-	
-	
+	/*Initializing modules*/
 	keypad_init();
 	LCD_init();
 	SoS_init();
-	SoS_CreateTask(Task_1ms_GetKey,10,1);
-	SoS_CreateTask(Task_10ms_Game,1000,2);
+	
+	/*Infotainment check answer Task is a periodic task that is called every 1 ms 
+	* It Takes answers from user through keypad 
+	* It handles the denouncing effect of the push button
+	*It have Lower Priority (1).
+	*/
+	SoS_CreateTask(Task_1ms_GetKey,1,1);
+	/*Infotainment Game Task is a periodic task that is called every 250 ms 
+	* It is suitable periodicity for the User to play the Game
+	* with out overload the CPU.
+	*It have Higher Priority (2).
+	*/
+	SoS_CreateTask(Task_10ms_Game,250,2); 
 	
 		
 	SoS_Run();
