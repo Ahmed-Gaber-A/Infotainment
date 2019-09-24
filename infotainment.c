@@ -17,7 +17,7 @@ uint8 Infotainment_Status = INFOTAINMENT_IDLE;
 /************************************************************************/
 /*		Shared Variables   (between Tasks)                              */
 /************************************************************************/
-static uint8 Infotainment_NewDataFlag_g ;
+static uint8 Infotainment_NewDataFlag_g  ;
 static uint8 Infotainment_Result_g ;
 static uint8 Infotainment_Question_Index_g ;
 static uint8 Infotainment_Score = 0;
@@ -26,7 +26,7 @@ static uint8 Infotainment_Score = 0;
 /*   Questions Array of strings					   					  */
 /************************************************************************/
 const char *Infotainment_Questions_arr[INFOTAINMENT_NUMBER_OF_QUESTIONS]=
-{" AlAHly Won? "," Salah Fast? "," Sea is Blue? "," Task is Good? ", " U R happy? "};
+{" AlAHly Won? "," Salah is Fast? "," Sea is Blue? "," Task is Good? ", " U R happy? "};
 /************************************************************************/
 /*   Infotainment Answers Array of chars					   					  */
 /************************************************************************/
@@ -37,13 +37,19 @@ const char Infotainment_Answers_arr[INFOTAINMENT_NUMBER_OF_QUESTIONS] = {'Y', 'Y
 
 void Infotainment_Start(void) 
 {
+	
 	static uint8 result ; 
-	LCD_clearScreen();
-	LCD_displayString(" Want play game?");
+	Infotainment_Question_Index_g = 0 ;
+	Infotainment_Result_g = 0;
+	Infotainment_Score =0 ;
+	
 	result = key_getpressed();
 	if (result == YES)
 	{
+	LCD_clearScreen();
+	LCD_displayString(" Want play game?");
 	Infotainment_Status = INFOTAINMENT_QUESTION;
+	Infotainment_NewDataFlag_g = 1u;
 	}	
 	else if (result == NO )
 	{
@@ -99,18 +105,19 @@ void Infotainment_ScoreDisplay (void)
 	 {
 		 Infotainment_Score ++ ;
 		 LCD_clearScreen();
-		 LCD_displayString("Correct:)");
-		 Infotainment_NewDataFlag_g = 0u;
+		 LCD_displayString(" Correct:)");
+		 Infotainment_NewDataFlag_g = 1u;
 	 }
 	 else 
 	 {
 		 LCD_clearScreen();
-		 LCD_displayString("Wrong :(");
-		 Infotainment_NewDataFlag_g = 0u;
+		 LCD_displayString(" Wrong :(");
+		 Infotainment_NewDataFlag_g = 1u;
 	 }
 	 if (Infotainment_Question_Index_g == INFOTAINMENT_NUMBER_OF_QUESTIONS)
 	 {
 		 Infotainment_Status = INFOTAINMENT_FINAL ;
+		 
 	 }
 	 else if (Infotainment_Question_Index_g < INFOTAINMENT_NUMBER_OF_QUESTIONS)
 	 {
@@ -121,9 +128,9 @@ void Infotainment_ScoreDisplay (void)
 void Infotainment_FinalScore(void)
 {
 	LCD_clearScreen();
-	LCD_displayString("Final Score = ");
+	LCD_displayString(" Final Score = ");
 	LCD_intgerToString(Infotainment_Score);
-	
+	Infotainment_NewDataFlag_g = 0u; 
 	Infotainment_Status = INFOTAINMENT_IDLE ; 
 }
 
