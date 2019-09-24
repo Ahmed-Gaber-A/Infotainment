@@ -26,7 +26,7 @@ static uint8 Infotainment_Score = 0;
 /*   Questions Array of strings					   					  */
 /************************************************************************/
 const char *Infotainment_Questions_arr[INFOTAINMENT_NUMBER_OF_QUESTIONS]=
-{"Do1234","DDDDDDDDDDDD","AAAAAAAAAA","BBBBBBBBBB", "CCCCCCCCC"};
+{" AlAHly Won? "," Salah Fast? "," Sea is Blue? "," Task is Good? ", " U R happy? "};
 /************************************************************************/
 /*   Infotainment Answers Array of chars					   					  */
 /************************************************************************/
@@ -39,7 +39,7 @@ void Infotainment_Start(void)
 {
 	static uint8 result ; 
 	LCD_clearScreen();
-	LCD_displayString("Want play game?");
+	LCD_displayString(" Want play game?");
 	result = key_getpressed();
 	if (result == YES)
 	{
