@@ -16,6 +16,7 @@
 #define KEY_PRESSED 2
 #define KEY_NOTPRESSED 3
 
+extern uint8 Sampling_Rate ;
 void keypad_init(void);
 extern uint8 key_getpressed(void);
 #endif /* KEYPAD_H_ */

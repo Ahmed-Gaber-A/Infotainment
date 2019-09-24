@@ -146,8 +146,8 @@ void SoS_Run(void)
 			     SoS_Tasks_arr[tasknum].Task_Status = RUNNING;
 			     SoS_Tasks_arr[tasknum].SoS_funcPtr();
 			     SoS_Tasks_arr[tasknum].Task_Status = WAITING;
-			     Tasks_max_priority --; /* Decrement the priority to check again if their is any ready task with lower priority */
-				 tasknum =0u;
+			   //  Tasks_max_priority --; /* Decrement the priority to check again if their is any ready task with lower priority */
+			//	 tasknum =0u;
 			   }			
 		   }		   
 	    }
