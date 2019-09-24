@@ -37,7 +37,7 @@ const char Infotainment_Answers_arr[INFOTAINMENT_NUMBER_OF_QUESTIONS] = {'Y', 'Y
 
 void Infotainment_Start(void) 
 {
-	
+	Sampling_Rate =2;
 	static uint8 result ; 
 	Infotainment_Question_Index_g = 0 ;
 	Infotainment_Result_g = 0;
